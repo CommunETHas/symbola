@@ -18,7 +18,7 @@ export default function Web3AuthConnectorInstance(chains: Chain[]) {
     };
 
     const web3AuthInstance = new Web3Auth({
-        clientId: "BA3kVK6CS-R-hchY5SfUybzDkAYlZ4kYGXXGJiXd0_Lw4vnTnt3iJeRrpNEQ0L-4sVhxSwArlkXcIH3TbhNRvAk",
+        clientId: import.meta.env.VITE_WEB3AUTH_CLIENT_ID,
         chainConfig,
         uiConfig: {
             appName: name,

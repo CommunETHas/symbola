@@ -1,4 +1,4 @@
-import {useAccount, useConnect} from "wagmi";
+import {useAccount, useConnect, useDisconnect} from "wagmi";
 import { Attestooooooor } from "./components";
 
 export function App() {
@@ -8,6 +8,7 @@ export function App() {
    */
   const { address, connector, isConnected } = useAccount();
     const { connect, connectors, error } = useConnect();
+    const { disconnect } = useDisconnect();
     console.log('connectors: ', connectors)
   return (
     <>
@@ -30,6 +31,9 @@ export function App() {
           <hr />
           <Attestooooooor />
           <hr />
+          <button onClick={() => disconnect()}>
+            Disconnect
+          </button>
         </>
       )}
     </>
