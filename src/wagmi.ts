@@ -1,8 +1,9 @@
-import { configureChains, createConfig } from "wagmi";
+import {configureChains, createConfig} from "wagmi";
 import { foundry, optimism, optimismGoerli } from "wagmi/chains";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import Web3AuthConnectorInstance from "./Web3ConnectorInstance";
 // import { alchemyProvider } from "wagmi/providers/alchemy";
-import { getDefaultWallets } from "@rainbow-me/rainbowkit";
+// import { getDefaultWallets } from "@rainbow-me/rainbowkit";
 
 /**
  * Tell wagmi which chains you want to support
@@ -36,27 +37,13 @@ const { chains, publicClient } = configureChains(
  * Export chains to be used by rainbowkit
  * @see https://wagmi.sh/react/providers/configuring-chains
  */
-export { chains };
+export { chains, publicClient };
 
-/**
- * Configures wagmi connectors for rainbowkit
- * @see https://www.rainbowkit.com/docs/custom-wallet-list
- * @see https://wagmi.sh/react/connectors
- */
-const { connectors } = getDefaultWallets({
-  appName:
-    "Optimism attestation station + Forge + Wagmi + RainbowKit + Vite App",
-  chains,
-  projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
-});
-
-/**
- * Creates a singleton wagmi client for the app
- * @see https://wagmi.sh/react/client
- */
 export const config = createConfig({
-  autoConnect: true,
-  connectors: connectors,
-  publicClient,
-  webSocketPublicClient: publicClient,
+    autoConnect: true,
+    connectors: [
+        Web3AuthConnectorInstance(chains) as any,
+    ],
+    publicClient,
+    webSocketPublicClient: publicClient,
 });

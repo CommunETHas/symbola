@@ -9,18 +9,12 @@ export default defineConfig({
    * Defines global constant replacments
    * @see https://vitejs.dev/config/shared-options.html#define
    */
-  define: {
-    global: "globalThis",
-  },
-  resolve: {
-    /**
-     * Polyfills nodejs imports
-     * @see https://vitejs.dev/config/shared-options.html#resolve-alias
-     */
-    alias: {
-      process: "process/browser",
-      util: "util",
-    },
+  optimizeDeps: {
+    include: [
+      "@web3auth/web3auth-wagmi-connector",
+      "@web3auth/modal",
+      "@web3auth/base",
+    ],
   },
   /**
    * Enables react
