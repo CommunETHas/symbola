@@ -1,5 +1,5 @@
 import {configureChains, createConfig} from "wagmi";
-import { foundry, optimism, optimismGoerli } from "wagmi/chains";
+import { foundry, optimism, optimismGoerli, mainnet } from "wagmi/chains";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import Web3AuthConnectorInstance from "./Web3ConnectorInstance";
 // import { alchemyProvider } from "wagmi/providers/alchemy";
@@ -11,7 +11,7 @@ import Web3AuthConnectorInstance from "./Web3ConnectorInstance";
  * @see https://wagmi.sh/react/providers/configuring-chains
  */
 const { chains, publicClient } = configureChains(
-  [optimism, optimismGoerli, foundry],
+  [optimism, optimismGoerli, mainnet, foundry],
   [
     /**
      * Uncomment this line to use Alchemy as your provider

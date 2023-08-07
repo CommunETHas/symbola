@@ -5,6 +5,7 @@ import { CHAIN_NAMESPACES } from "@web3auth/base";
 import { Chain } from "wagmi";
 
 export default function Web3AuthConnectorInstance(chains: Chain[]) {
+    console.log('connector ::: ', chains)
     // Create Web3Auth Instance
     const name = "Symbola";
     const chainConfig = {
