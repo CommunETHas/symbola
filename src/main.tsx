@@ -1,9 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {WagmiConfig} from "wagmi";
+import "@rainbow-me/rainbowkit/styles.css";
+import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
+
 
 import { App } from "./App";
-import { config } from "./wagmi";
+import { config, chains } from "./wagmi";
 
 /**
  * Configures wagmi connectors for rainbowkit
@@ -24,7 +27,9 @@ import { config } from "./wagmi";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <WagmiConfig config={config}>
+        <RainbowKitProvider chains={chains}>
         <App />
+        </RainbowKitProvider>
     </WagmiConfig>
   </React.StrictMode>,
 );

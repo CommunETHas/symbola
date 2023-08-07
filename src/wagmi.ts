@@ -1,7 +1,9 @@
 import {configureChains, createConfig} from "wagmi";
 import { foundry, optimism, optimismGoerli, mainnet } from "wagmi/chains";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-import Web3AuthConnectorInstance from "./Web3ConnectorInstance";
+import rainbowWeb3ConnectorInstance from "./RainbowWeb3ConnectorInstance";
+import { walletConnectWallet, rainbowWallet, metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 // import { alchemyProvider } from "wagmi/providers/alchemy";
 // import { getDefaultWallets } from "@rainbow-me/rainbowkit";
 
@@ -39,11 +41,15 @@ const { chains, publicClient } = configureChains(
  */
 export { chains, publicClient };
 
+const connectors = connectorsForWallets([
+    {
+        groupName: "Recommended",
+        wallets: [rainbowWallet({ chains }), walletConnectWallet({ chains }), metaMaskWallet({ chains }), rainbowWeb3ConnectorInstance({ chains })],
+    },
+]);
 export const config = createConfig({
     autoConnect: true,
-    connectors: [
-        Web3AuthConnectorInstance(chains) as any,
-    ],
+    connectors,
     publicClient,
     webSocketPublicClient: publicClient,
 });
