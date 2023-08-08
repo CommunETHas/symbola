@@ -2,6 +2,9 @@
   "name": "optimism-starter",
   "version": "0.0.4",
   "private": true,
+  "engines": {
+    "node": "18.17.0"
+  },
   "scripts": {
     "anvil": "source .env && anvil --fork-url $ANVIL_FORK_URL --chain-id $ANVIL_CHAIN_ID",
     "deploy": "source .env && forge create contracts/src/Counter.sol:Counter --rpc-url $FORGE_RPC_URL --private-key $FORGE_PRIVATE_KEY --etherscan-api-key $ETHERSCAN_API_KEY --verify",
