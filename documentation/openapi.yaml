@@ -1,0 +1,194 @@
+openapi: 3.0.3
+info:
+  title: Symbola - OpenAPI 3.0
+  description: |-
+    Superhack
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: https://symbola.app/v1
+tags:
+  - name: Events
+    description: Events ressource
+  - name: Tickets
+    description: Tickets ressource
+  - name: Users
+    description: Users ressource
+paths:
+  /events:
+    get:
+      summary: Get events
+      tags: 
+        - Events
+      parameters: 
+        - in: query
+          name: type
+          description: Type of the events to query
+          required: false
+          schema:
+            type: string
+            example: "klqsjdsldkj"
+      responses:
+        "200":
+          description: Get event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Events"
+        "500":
+          $ref: "#/components/responses/HttpInternalError"
+    post:
+      summary: Create event
+      tags: 
+        - Events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Event"
+      responses:
+        "201":
+          $ref: "#/components/responses/HttpCreated"
+        "500":
+          $ref: "#/components/responses/HttpInternalError"
+  /events/{eventId}/purchase:
+    post:
+      summary: Purchase a ticket
+      tags: 
+        - Events
+      parameters: 
+        - in: path
+          name: eventId
+          description: ID of the event
+          required: true
+          schema:
+            type: string
+            example: "klqsjdsldkj"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Purchase"
+      responses:
+        "201":
+          $ref: "#/components/responses/HttpCreated"
+        "500":
+          $ref: "#/components/responses/HttpInternalError"
+  /users/events:
+    get:
+      summary: Get user events
+      tags: 
+        - Users
+      security: 
+        - BearerAuth: []
+      responses:
+        "200":
+          description: Get event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Events"
+        "500":
+          $ref: "#/components/responses/HttpInternalError"
+  /tickets:
+    get:
+      summary: Get tickets
+      tags: 
+        - Tickets
+      responses:
+        "200":
+          description: Get event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Tickets"
+        "500":
+          $ref: "#/components/responses/HttpInternalError"
+
+              
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+  responses:
+    HttpCreated:
+      description: "CREATED"
+    HttpInternalError:
+      description: "INTERNAL_ERROR"
+  schemas:
+    Purchase:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          example: "kjqshdhjks"
+        eventId:
+          type: string
+          example: "kjqshdhjks"
+    Tickets:
+      type: array
+      items:
+        $ref: '#/components/schemas/Ticket'
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        title:
+          type: string
+          example: "Shakira concert"
+        description:
+          type: string
+          example: "Best Shakira concert ever!"
+        location:
+          type: string
+          example: "Madagascar"
+        price:
+          type: number
+          format: int64
+          example: 0.5
+    Events:
+      type: array
+      items:
+        $ref: '#/components/schemas/Event'
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        title:
+          type: string
+          example: "Shakira concert"
+        description:
+          type: string
+          example: "Best Shakira concert ever!"
+        type:
+          type: string
+          description: Any value is possible
+          example: "Concert"
+        image:
+          type: string
+          example: "sdqkljdsqkld"
+        location:
+          type: string
+          example: "Madagascar"
+        price:
+          type: number
+          format: int64
+          example: 0.5
+        attendees:
+          type: integer
+          format: int64
+          example: 80
+        capacity:
+          type: integer
+          format: int64
+          example: 100
