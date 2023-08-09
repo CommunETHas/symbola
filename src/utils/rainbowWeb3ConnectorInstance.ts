@@ -7,7 +7,7 @@ import { CHAIN_NAMESPACES, WALLET_ADAPTERS } from "@web3auth/base";
 const name = "Web3Auth";
 const iconUrl = "https://web3auth.io/images/web3auth-logo.svg";
 
-const rainbowWeb3ConnectorInstance = ({ chains }) => {
+const rainbowWeb3ConnectorInstance = ({ chains }: any) => {
     // Create Web3Auth Instance
     const chainConfig = {
         chainNamespace: CHAIN_NAMESPACES.EIP155,
