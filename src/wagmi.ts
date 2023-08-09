@@ -1,8 +1,11 @@
-import { configureChains, createConfig } from "wagmi";
-import { foundry, optimism, optimismGoerli } from "wagmi/chains";
+import {configureChains, createConfig} from "wagmi";
+import { foundry, optimism, optimismGoerli, mainnet } from "wagmi/chains";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import rainbowWeb3ConnectorInstance from "./RainbowWeb3ConnectorInstance";
+import { walletConnectWallet, rainbowWallet, metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
+import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 // import { alchemyProvider } from "wagmi/providers/alchemy";
-import { getDefaultWallets } from "@rainbow-me/rainbowkit";
+// import { getDefaultWallets } from "@rainbow-me/rainbowkit";
 
 /**
  * Tell wagmi which chains you want to support
@@ -10,7 +13,7 @@ import { getDefaultWallets } from "@rainbow-me/rainbowkit";
  * @see https://wagmi.sh/react/providers/configuring-chains
  */
 const { chains, publicClient } = configureChains(
-  [optimism, optimismGoerli, foundry],
+  [optimism, optimismGoerli, mainnet, foundry],
   [
     /**
      * Uncomment this line to use Alchemy as your provider
@@ -36,27 +39,17 @@ const { chains, publicClient } = configureChains(
  * Export chains to be used by rainbowkit
  * @see https://wagmi.sh/react/providers/configuring-chains
  */
-export { chains };
+export { chains, publicClient };
 
-/**
- * Configures wagmi connectors for rainbowkit
- * @see https://www.rainbowkit.com/docs/custom-wallet-list
- * @see https://wagmi.sh/react/connectors
- */
-const { connectors } = getDefaultWallets({
-  appName:
-    "Optimism attestation station + Forge + Wagmi + RainbowKit + Vite App",
-  chains,
-  projectId: import.meta.env.VITE_WALLETCONNECT_PROJECT_ID,
-});
-
-/**
- * Creates a singleton wagmi client for the app
- * @see https://wagmi.sh/react/client
- */
+const connectors = connectorsForWallets([
+    {
+        groupName: "Recommended",
+        wallets: [rainbowWallet({ chains }), walletConnectWallet({ chains }), metaMaskWallet({ chains }), rainbowWeb3ConnectorInstance({ chains })],
+    },
+]);
 export const config = createConfig({
-  autoConnect: true,
-  connectors: connectors,
-  publicClient,
-  webSocketPublicClient: publicClient,
+    autoConnect: true,
+    connectors,
+    publicClient,
+    webSocketPublicClient: publicClient,
 });
