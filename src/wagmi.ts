@@ -1,7 +1,7 @@
 import {configureChains, createConfig} from "wagmi";
 import { foundry, optimism, optimismGoerli, mainnet } from "wagmi/chains";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-import rainbowWeb3ConnectorInstance from "./RainbowWeb3ConnectorInstance";
+import rainbowWeb3ConnectorInstance from "./utils/rainbowWeb3ConnectorInstance";
 import { walletConnectWallet, rainbowWallet, metaMaskWallet } from '@rainbow-me/rainbowkit/wallets';
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 // import { alchemyProvider } from "wagmi/providers/alchemy";
