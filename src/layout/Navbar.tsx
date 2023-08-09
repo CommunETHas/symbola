@@ -1,5 +1,5 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Link, Outlet } from "@tanstack/router";
+import { Link, Outlet } from "@tanstack/react-router";
 import { useAccount } from "wagmi";
 
 export function Navbar() {

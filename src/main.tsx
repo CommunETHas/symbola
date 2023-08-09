@@ -4,10 +4,9 @@ import { WagmiConfig } from "wagmi";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./styles/global.css";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { RouterProvider } from "@tanstack/router";
+import { RouterProvider } from "@tanstack/react-router";
 import { router } from "./router/router";
 
-import { App } from "./App";
 import { config, chains } from "./wagmi";
 
 /**

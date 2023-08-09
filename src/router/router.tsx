@@ -1,12 +1,5 @@
-import React, { StrictMode } from "react";
-import {
-  Outlet,
-  RouterProvider,
-  Link,
-  Router,
-  Route,
-  RootRoute,
-} from "@tanstack/router";
+import React from "react";
+import { Router, Route, RootRoute } from "@tanstack/react-router";
 import { Events } from "../pages/Events";
 import { CreateTicketing } from "../pages/CreateTicketing";
 import { Home } from "../pages/Home";
